@@ -3,19 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
-    <script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
+<script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
 </head>
 <body>
+	<div class="result"></div>
     <script type="text/javascript">
-        $.getJSON('http://localhost:8080/demo/all').done(function(data) {
+		$.getJSON("http://localhost:8087/demo/all").then(function(data)
+		{console.log(data);
+
+		   var tr = data
+			for (var i = 0; i < data.length; i++) {
+			var tr = $('<tr/>');
+
+			// Indexing into data.report for each td element
+			$(tr).append("<td>" + data[i].id + "</td>");
+			$(tr).append("<td> " + data[i].name + "</td>");
+			$(tr).append("<td> &nbsp  &nbsp  &nbsp " + data[i].email + "</td>");
+			$('.table1').append(tr);
+			}
+
+		});
+		$.get( "http://localhost:8087/demo/ip", function( data ) {
+		  $( ".result" ).html( "IP: " +data );
+		});
+        $.getJSON('http://localhost:8087/demo/all').done(function(data) {
             console.log(data)
         })
     </script>
+	    <table class="table1">
+        <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>email</th>
+        </tr>
+    </table>
 </body>
 </html>
 
 
-<form action="http://localhost:8080/demo/add" method="get">
+<form action="http://localhost:8087/demo/add" method="get">
   name: <input type="text" name="name"><br>
   email: <input type="text" name="email"><br>
   <input type="submit" value="Add">
